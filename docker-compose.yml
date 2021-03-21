@@ -1,0 +1,19 @@
+version: '3.3'
+
+services:
+  domoticz:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: domoticz
+    restart: unless-stopped
+    # Pass devices to container
+    # devices:
+    #   - "/dev/serial/by-id/usb-0658_0200-if00:/dev/ttyACM0"
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./config:/opt/domoticz/userdata
+    environment:
+      - TZ=Europe/Amsterdam
+      - LOG_PATH=/opt/domoticz/userdata/domoticz.log
